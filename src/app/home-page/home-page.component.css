@@ -1,0 +1,126 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden; 
+}
+
+.landing {
+    padding: 20px;
+}
+
+.landing-content {
+    max-width: 1200px;
+    margin: auto;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+.vector {
+    font-weight: bold;
+    color: #007bff; 
+}
+
+.image {
+    overflow: hidden; 
+}
+
+.animated-image {
+    transition: transform 0.5s ease, opacity 0.5s ease; 
+}
+
+.animated-image:hover {
+    transform: scale(1.1); 
+    opacity: 0.9; 
+    border-radius: 10px;
+}
+
+.login-button {
+    background-color: #007bff; 
+    color: #fff;
+    border: none; 
+    border-radius: 25px;
+    padding: 10px 50px;
+    font-size: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease; 
+}
+
+.login-button:hover {
+    background-color: #0056b3; 
+    color: #fff;
+    transform: scale(1.05); 
+}
+
+/* Media Queries */
+@media (max-width: 1200px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 992px) {
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    .login-button {
+        padding: 10px 30px; /* Adjust padding for medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.25rem;
+    }
+
+    .login-button {
+        width: 100%;
+        padding: 10px; /* Full width and adjust padding */
+    }
+}
+
+@media (max-width: 576px) {
+    h1 {
+        font-size: 1.2rem;
+    }
+
+    h2 {
+        font-size: 1rem;
+    }
+
+    .login-button {
+        font-size: 18px; /* Smaller font size */
+        padding: 8px; /* Adjust padding */
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.1rem;
+    }
+
+    h2 {
+        font-size: 0.9rem;
+    }
+
+    .login-button {
+        font-size: 16px; /* Further adjust font size */
+    }
+}

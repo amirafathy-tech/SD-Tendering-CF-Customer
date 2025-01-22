@@ -1,0 +1,32 @@
+{
+    "VCAP_SERVICES": {
+      "xsuaa": [
+        {
+          "name": "xsuaa-aa",
+          "label": "xsuaa",
+          "tags": ["xsuaa"],
+          "plan": "application",
+            "credentials": {
+              "apiurl": "https://api.authentication.us10.hana.ondemand.com",
+              "clientid": "sb-na-084f637f-cda5-4bd0-a325-1fbe18291e1c!t374344",
+              "clientsecret": "5019a4c9-fb03-4091-9bb6-792f0429f0f6$yas-YWsghQX_915pC1utWtiLiqnBnPjlKmCFN6ufYwk=",
+              "credential-type": "binding-secret",
+              "identityzone": "btp-x4sdegio",
+              "identityzoneid": "17b49857-58ee-41b7-872d-b569a6e27dcb",
+              "sburl": "https://internal-xsuaa.authentication.us10.hana.ondemand.com",
+              "serviceInstanceId": "0ab49108-9c01-424e-8a3e-c25e1920d39f",
+              "subaccountid": "17b49857-58ee-41b7-872d-b569a6e27dcb",
+              "tenantid": "17b49857-58ee-41b7-872d-b569a6e27dcb",
+              "tenantmode": "shared",
+              "uaadomain": "authentication.us10.hana.ondemand.com",
+              "url": "https://btp-x4sdegio.authentication.us10.hana.ondemand.com",
+              "verificationkey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2Vxzm6N+FpXUwehh2aMj\n7bDVknZH9vgzkmi2sk5KRzrLpuKbGlZUBoVHVZSyljLV7vMgFnLXu5M58qQh2qOe\nQpIrjq051n7YBcVoBVPcNzFEJaMu5mdVa8FzRi6bqznh40xLiEtRJvJNyy0lWceQ\nka3DmY6ftDS76QXuNt/n+vr6t60cGayrlxOOT3bP6VPiefqPOWjLnM+k3jEZrmOu\njnaMDcYGBiE3UrzHjk7XEJFdt2J99/icSwwgK1BOzoti3dJmb5juvxI2aBXkVm3s\nZPWh9w81XSdO9fiFRp7IrjCgkLWHfEPVZOlB9fD51tfvJbBQxwnCxobb1a900vqS\nDQIDAQAB\n-----END PUBLIC KEY-----",
+              "xsappname": "na-084f637f-cda5-4bd0-a325-1fbe18291e1c!t374344",
+              "zoneid": "17b49857-58ee-41b7-872d-b569a6e27dcb"
+            
+          }
+        }
+      ]
+    }
+  }
+  

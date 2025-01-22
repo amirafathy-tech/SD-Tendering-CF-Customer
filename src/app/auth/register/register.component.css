@@ -1,0 +1,54 @@
+
+
+.register-header {
+    background: rgb(12, 77, 129);
+    padding: 20px;
+    font-size: 1.4em;
+    font-weight: normal;
+    text-align: center;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  .card-style {
+    max-width: 800px; 
+    width: 100%; 
+    /* max-height: 800px; */
+}
+
+
+/* Style the popup box */
+.popup-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.popup {
+  position: relative;
+  background: white;
+  border: 1px solid #ccc;
+  width: 30vw;
+  height: 30vh; 
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: auto; 
+  padding: 1rem; 
+}
+.ok-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem; 
+  border-radius: 4px;
+  cursor: pointer;
+}

@@ -1,0 +1,64 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="card card-style">
+        <h4 class="card-header login-header" style="text-align: center;color: white; background-color: #007bff;">Enter Quotation Details:</h4>
+        <div class="card-body">
+            <form [formGroup]="cloudData" (ngSubmit)="nextPage(cloudData)">
+                <div class="mb-3">
+                    <label class="form-label">Document Number:</label>
+                    <input type="number" formControlName="document" class="form-control" (keyup.enter)="onDocumentEnter()" />
+                    <!--error -->
+                    <span *ngIf="cloudData.controls['document'].invalid && (cloudData.controls['document'].dirty || 
+                       cloudData.controls['document'].touched)" class="error">
+                        <span class="text-danger my-3" *ngIf="cloudData.controls['document'].errors?.['required']">
+                            Document Number is required.
+                        </span>
+                    </span>
+                    <span class="text-danger my-3" *ngIf="cloudData.controls['document'].errors?.['negativeValue']">
+                        Document Number cannot be a negative.
+                      </span>
+                </div>
+                <div class="mb-3">
+                    <p-dropdown [options]="documentItems" formControlName="item" 
+                    optionValue="SalesQuotationItem" (onChange)="onItemNumberChange($event)"
+                    optionLabel="SalesQuotationItem" [filter]="true" [filterFields]="['SalesQuotationItem','SalesQuotationItemText']"
+                    [showClear]="true" placeholder="Select Item Number" [virtualScroll]="true" [appendTo]="'body'" 
+                    [virtualScrollItemSize]="40">
+                    <ng-template let-record pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                            <div>{{ record.SalesQuotationItem }}::{{ record.SalesQuotationItemText }}</div>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+
+                <span style="color: red;margin: 5px;">*</span>
+            <!-- </ng-container> -->
+            <div class="text-danger m-1 w-20" style="width:15rem"
+                *ngIf="cloudData.get('item')?.errors?.['required'] && cloudData.get('item')?.touched">
+                Item Number is required
+            </div>
+                    <!-- <label class="form-label">Item Number: </label>
+                    <input type="number" formControlName="item" class="form-control" />
+                  
+                    <span *ngIf="cloudData.controls['item'].invalid && (cloudData.controls['item'].dirty || 
+                       cloudData.controls['item'].touched)" class="error">
+                        <span class="text-danger" *ngIf="cloudData.controls['item'].errors?.['required']">
+                            Item Number is required.
+                        </span>
+                    </span>
+
+                    <span class="text-danger my-3" *ngIf="cloudData.controls['item'].errors?.['negativeValue']">
+                        Item Number cannot be negative.
+                      </span> -->
+                </div>
+
+                <div class="d-flex justify-content-end my-3">
+                    <button [disabled]="cloudData.invalid" type="submit" class="btn btn-primary">
+                        Next<i class="pi pi-angle-right" ></i>
+                    </button>
+                    <!-- <p-button label="Next " [disabled]="cloudData.invalid" type="submit" icon="pi pi-angle-right"
+                        iconPos="right"></p-button> -->
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

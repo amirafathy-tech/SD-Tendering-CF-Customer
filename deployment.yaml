@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: angular
+    kyma-grafana: enabled
+  name: app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: angular
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: angular
+        kyma-grafana: enabled
+    spec:
+      containers:
+        - image: amirafathy/sddev
+          name: sdcontdev
+          ports:
+            - containerPort: 4200
+          envFrom:
+            - secretRef:
+                name: angular
+                optional: true
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: angular
+  name: sddev
+spec:
+  ports:
+    - port: 4200
+      name: http
+      protocol: TCP
+      targetPort: 4200
+  selector:
+    app: angular
+  type: ClusterIP
+status:
+  loadBalancer: {}

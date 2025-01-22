@@ -1,0 +1,21 @@
+{
+    "/api": {
+        "target": "https://sd-cf.cfapps.us10-001.hana.ondemand.com",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug",
+        "pathRewrite":{
+            "^/api":""
+        }
+    },
+
+    "/auth": {
+        "target": "https://anjbwp8zl.trial-accounts.ondemand.com/oauth2/token",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug",
+        "pathRewrite":{
+            "^/auth":""
+        }
+    }
+}

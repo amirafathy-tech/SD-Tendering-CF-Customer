@@ -1,0 +1,72 @@
+/* You can add global styles to this file, and also import other style files */
+@import "font-awesome/css/font-awesome.css";
+@import "bootstrap/dist/css/bootstrap.css";
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+@import 'primeng/resources/primeng.min.css';
+
+
+
+@import "primeflex/primeflex.css";
+
+/* @import "~@fundamental-ngx/core/styles.css"; */
+@import "node_modules/@fundamental-ngx/core/styles/fundamental-ngx-core.css" ;
+
+
+
+.container{
+    margin-top:15%;
+  }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } 
+.card {
+    background: var(--surface-card);
+    padding: 2rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+
+@font-face {
+  font-family: '72';
+  src: url('~@sap-theming/theming-base-content/content/Base/baseLib/baseTheme/fonts/72-Regular-full.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+ }
+ 
+ @font-face {
+  font-family: '72';
+  src: url('~@sap-theming/theming-base-content/content/Base/baseLib/baseTheme/fonts/72-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+ }
+ 
+ @font-face {
+  font-family: '72';
+  src: url('~@sap-theming/theming-base-content/content/Base/baseLib/baseTheme/fonts/72-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+ }
+ 
+ @font-face {
+  font-family: 'SAP-icons';
+  src: url('~@sap-theming/theming-base-content/content/Base/baseLib/baseTheme/fonts/SAP-icons.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+ }
+ 
+ @font-face {
+  font-family: 'BusinessSuiteInAppSymbols';
+  src: url('~@sap-theming/theming-base-content/content/Base/baseLib/baseTheme/fonts/BusinessSuiteInAppSymbols.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+ }
+ 
+ @font-face {
+  font-family: 'SAP-icons-TNT';
+  src: url('~@sap-theming/theming-base-content/content/Base/baseLib/baseTheme/fonts/SAP-icons-TNT.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+ }

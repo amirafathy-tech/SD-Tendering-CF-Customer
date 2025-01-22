@@ -1,0 +1,92 @@
+<!-- <app-alert></app-alert> -->
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="card card-style">
+        <h4 class="card-header register-header">Create a New Account</h4>
+        <div class="card-body">
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm)">
+                <div class="mb-3">
+                    <label class="form-label">First Name</label>
+                    <input type="text" formControlName="firstName" class="form-control" />
+                    <!-- <div *ngIf="submitted && f['firstName'].errors" class="invalid-feedback">
+                        <div *ngIf="f['firstName'].errors['required']">First Name is required</div>
+                    </div> -->
+
+                     <!--error -->
+                     <span *ngIf="registerForm.controls['firstName'].invalid && (registerForm.controls['firstName'].dirty || 
+                     registerForm.controls['firstName'].touched)" class="error">
+                       <span class="text-danger" *ngIf="registerForm.controls['firstName'].errors?.['required']">
+                           FirstName is required.
+                       </span>
+                   </span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" formControlName="lastName" class="form-control" />
+                    <!-- <div *ngIf="submitted && f['lastName'].errors" class="invalid-feedback">
+                        <div *ngIf="f['lastName'].errors['required']">Last Name is required</div>
+                    </div> -->
+
+                      <!--error -->
+                      <span *ngIf="registerForm.controls['lastName'].invalid && (registerForm.controls['lastName'].dirty || 
+                      registerForm.controls['lastName'].touched)" class="error">
+                        <span class="text-danger" *ngIf="registerForm.controls['lastName'].errors?.['required']">
+                            LastName is required.
+                        </span>
+                    </span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input type="text" formControlName="username" class="form-control" />
+                    <!-- <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
+                        <div *ngIf="f['username'].errors['required']">Username is required</div>
+                    </div> -->
+
+                    <!--error -->
+                    <span *ngIf="registerForm.controls['username'].invalid && (registerForm.controls['username'].dirty || 
+                      registerForm.controls['username'].touched)" class="error">
+                        <span class="text-danger" *ngIf="registerForm.controls['username'].errors?.['required']">
+                            UserName is required.
+                        </span>
+                    </span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" formControlName="email" class="form-control" />
+                    <!-- <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                        <div *ngIf="f['email'].errors['required']">Email is required</div>
+                    </div> -->
+
+                    <!--error -->
+                    <span *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].dirty || 
+                      registerForm.controls['email'].touched)" class="error">
+                        <span class="text-danger" *ngIf="registerForm.controls['email'].errors?.['required']">
+                            Email is required.
+                        </span>
+                    </span>
+                    <span *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].dirty || 
+                    registerForm.controls['email'].touched)" class="error">
+                        <span class="text-danger" *ngIf="registerForm.controls['email'].errors?.['email']">
+                            Please Enter Valid Email.
+                        </span>
+                    </span>
+                </div>
+                <div class="d-flex justify-content-center my-3">
+                    <button [disabled]="registerForm.invalid" type="submit" class="btn btn-primary">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+                        Register
+                    </button>
+                    <a routerLink="/login" class="btn btn-link">Have an Account?</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="popup-container" *ngIf="showPopup">
+    <div class="popup">
+        <h4>Your Account has been created successfully,</h4>
+       <p> plaese check your email to activate your account.Then,You can login </p>
+        <button class="form-button ok-button" style=" border-radius: 8px; " (click)="closePopup()">OK</button>
+    </div>
+</div>
