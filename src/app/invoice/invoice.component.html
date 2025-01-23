@@ -33,10 +33,13 @@
 
 <p-toast></p-toast>
 <!-- // |search:searchKey -->
-<p-table [value]="mainItemsRecords" dataKey="invoiceMainItemCode" [resizableColumns]="true"
+<!-- #dt1  [globalFilterFields]="['description']" -->
+<p-table
+[value]="mainItemsRecords" dataKey="invoiceMainItemCode" [resizableColumns]="true"
   [reorderableColumns]="true" [expandedRowKeys]="expandedRows" editMode="row" [(selection)]="selectedTenderingMainItems"
   [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading"
-  [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0">
+  [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+  >
   <ng-template pTemplate="caption">
     <div class="flex flex-wrap justify-content-between gap-2">
       <div class="border border-primary rounded">
@@ -44,7 +47,12 @@
           <fd-input-group type="search" glyph="search" glyphAriaLabel="Search" placeholder="Search..." [button]="true"
             [disabled]="false" [(ngModel)]="searchKey" (input)="filterRecords()">
           </fd-input-group>
+          <!-- <button (click)="searchKey = ''; filterRecords()">Reset</button> -->
         </div>
+        <!-- <span class="p-input-icon-left ml-auto">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+      </span> -->
       </div>
       <div>
         <div class="p-inputgroup">
@@ -982,11 +990,23 @@
 
   <ng-container *ngIf="parsedData">
       <tr *ngFor="let mainItem of parsedData ; let i = index">
+        <td style="min-width: 10rem"> 
+          <!-- <ng-container *ngIf="mainItem.subItems?.length">
+            <div class="custom-badge">
+              {{ mainItem.subItems.length }}
+            </div>
+          </ng-container> -->
+        </td>
         <td style="min-width: 10rem"></td>
         <td style="min-width: 10rem"></td>
         <td style="min-width: 10rem"></td>
-        <td style="min-width: 10rem"></td>
-        <td style="min-width: 10rem"></td>
+        <td style="min-width: 10rem">
+          <ng-container *ngIf="mainItem.subItems?.length">
+            <div class="custom-badge">
+              {{ mainItem.subItems.length }}
+            </div>
+          </ng-container>
+        </td>
           <td style="min-width: 10rem;">
               <!-- {{mainItem.serviceNumberCode}} -->
               <ng-container *ngIf="mainItem">

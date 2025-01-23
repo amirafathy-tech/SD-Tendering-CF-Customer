@@ -98,6 +98,23 @@
     align-self: center;
   }
   
+  .custom-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.3rem; /* Set the width to match the badge size */
+    height: 1.2rem; /* Set the height to match the badge size */
+    font-size: 1rem; /* Adjust font size */
+    font-weight: bold;
+    color: white;
+    background-color: #28a745; /* Success green */
+    border-radius: 50%; /* Makes it circular */
+    text-align: center;
+    line-height: 1; /* Ensures vertical alignment */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Optional for a slight shadow */
+  }
+  
+  
 
 
 /* Style the popup box */

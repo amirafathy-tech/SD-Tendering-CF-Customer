@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { ModelEntity, ModelSpecDetails } from '../models/model-specs.model';
 import { forkJoin } from 'rxjs';
 import * as XLSX from 'xlsx';
+import { main } from '@popperjs/core';
 
 @Component({
   selector: 'app-invoice-test',
@@ -159,9 +160,10 @@ export class InvoiceComponent {
   }
 
   getCloudDocument() {
+    //localhost:8080/mainitems/referenceid?referenceId=20000000&salesQuotationItem=20
     this._ApiService
       .get<MainItem[]>(
-        `mainitems/referenceid?referenceId=${this.documentNumber}`
+        `mainitems/referenceid?referenceId=${this.documentNumber}&salesQuotationItem=${this.itemNumber}`
       )
       .subscribe({
         next: (res) => {
@@ -203,16 +205,25 @@ export class InvoiceComponent {
   }
 
   // search:
+  // originalMainItemsRecords: MainItem[] = []; // Keep a copy of the original records
+
+
   filterRecords(): void {
-    if (this.searchKey !='') {
+    // this.originalMainItemsRecords = [...this.mainItemsRecords];
+    if (this.searchKey && this.searchKey.trim() !== '') {
       this.mainItemsRecords = this.mainItemsRecords.filter((record: any) =>
         record.description.toLowerCase().includes(this.searchKey.toLowerCase())
       );
     } else {
+      //  this.mainItemsRecords = [...this.originalMainItemsRecords];
+      console.log("else");
+
       this.mainItemsRecords = [...this.mainItemsRecords];
+      console.log(this.mainItemsRecords);
+
     }
   }
-  
+
 
   // Imports ()
   showImportsDialog() {
@@ -259,7 +270,7 @@ export class InvoiceComponent {
   // for selected models specs details:
   saveModelSpecsDetails(mainItem: ModelSpecDetails) {
     console.log(mainItem);
-    if (this.selectedServiceNumberRecordForModels &&this.selectedFormulaRecord &&this.resultAfterTest){
+    if (this.selectedServiceNumberRecordForModels && this.selectedFormulaRecord && this.resultAfterTest) {
       const newRecord: MainItem = {
         //
         invoiceMainItemCode: 0,
@@ -338,7 +349,7 @@ export class InvoiceComponent {
         //................
       }
     }
-    if (!this.selectedServiceNumberRecordForModels &&this.selectedFormulaRecord &&this.resultAfterTest){
+    if (!this.selectedServiceNumberRecordForModels && this.selectedFormulaRecord && this.resultAfterTest) {
       const newRecord: MainItem = {
         //
         invoiceMainItemCode: 0,
@@ -417,7 +428,7 @@ export class InvoiceComponent {
         //................
       }
     }
-    if (this.selectedServiceNumberRecordForModels && !this.selectedFormulaRecord && !this.resultAfterTest){
+    if (this.selectedServiceNumberRecordForModels && !this.selectedFormulaRecord && !this.resultAfterTest) {
       const newRecord: MainItem = {
         //
         invoiceMainItemCode: 0,
@@ -495,7 +506,7 @@ export class InvoiceComponent {
         //................
       }
     }
-    if (!this.selectedServiceNumberRecordForModels && !this.selectedFormulaRecord && !this.resultAfterTest){
+    if (!this.selectedServiceNumberRecordForModels && !this.selectedFormulaRecord && !this.resultAfterTest) {
       const newRecord: MainItem = {
         //
         invoiceMainItemCode: 0,
@@ -506,7 +517,7 @@ export class InvoiceComponent {
         description: mainItem.shortText,
 
         formulaCode: mainItem.formulaCode,
-         quantity: mainItem.quantity,
+        quantity: mainItem.quantity,
         amountPerUnit: mainItem.grossPrice,
         total: mainItem.netValue,
         profitMargin: mainItem.profitMargin,
@@ -573,7 +584,7 @@ export class InvoiceComponent {
         //................
       }
     }
-   
+
   }
   cancelModelSpecsDetails(item: any): void {
     this.selectedModelSpecsDetails = this.selectedModelSpecsDetails.filter(i => i !== item);
@@ -581,7 +592,7 @@ export class InvoiceComponent {
   // for selected from excel sheet:
   saveMainItemFromExcel(mainItem: MainItem) {
     console.log(mainItem);
-    if (this.selectedServiceNumberRecordForExcel &&this.selectedFormulaRecord &&this.resultAfterTest){
+    if (this.selectedServiceNumberRecordForExcel && this.selectedFormulaRecord && this.resultAfterTest) {
       const newRecord: MainItem = {
         //
         invoiceMainItemCode: 0,
@@ -601,7 +612,8 @@ export class InvoiceComponent {
         doNotPrint: mainItem.doNotPrint,
         Type: '',
         isPersisted: false,
-        subItems: []
+        // subItems: []
+        subItems: mainItem.subItems
       }
       console.log(newRecord);
       if (newRecord.quantity === 0) {
@@ -660,7 +672,7 @@ export class InvoiceComponent {
         //................
       }
     }
-    if (!this.selectedServiceNumberRecordForExcel &&this.selectedFormulaRecord &&this.resultAfterTest){
+    if (!this.selectedServiceNumberRecordForExcel && this.selectedFormulaRecord && this.resultAfterTest) {
       const newRecord: MainItem = {
         //
         invoiceMainItemCode: 0,
@@ -680,7 +692,8 @@ export class InvoiceComponent {
         doNotPrint: mainItem.doNotPrint,
         Type: '',
         isPersisted: false,
-        subItems: []
+        // subItems: []
+        subItems: mainItem.subItems
       }
       console.log(newRecord);
       if (newRecord.quantity === 0) {
@@ -739,7 +752,7 @@ export class InvoiceComponent {
         //................
       }
     }
-    if (this.selectedServiceNumberRecordForExcel && !this.selectedFormulaRecord && !this.resultAfterTest){
+    if (this.selectedServiceNumberRecordForExcel && !this.selectedFormulaRecord && !this.resultAfterTest) {
       const newRecord: MainItem = {
         //
         invoiceMainItemCode: 0,
@@ -750,7 +763,7 @@ export class InvoiceComponent {
         description: this.selectedServiceNumberRecordForExcel.description,
 
         formulaCode: mainItem.formulaCode,
-         quantity: mainItem.quantity,
+        quantity: mainItem.quantity,
         amountPerUnit: mainItem.amountPerUnit,
         total: mainItem.total,
         profitMargin: mainItem.profitMargin,
@@ -758,7 +771,8 @@ export class InvoiceComponent {
         doNotPrint: mainItem.doNotPrint,
         Type: '',
         isPersisted: false,
-        subItems: []
+        // subItems: []
+        subItems: mainItem.subItems
       }
       console.log(newRecord);
       if (newRecord.quantity === 0) {
@@ -817,7 +831,7 @@ export class InvoiceComponent {
         //................
       }
     }
-    if (!this.selectedServiceNumberRecordForExcel && !this.selectedFormulaRecord && !this.resultAfterTest){
+    if (!this.selectedServiceNumberRecordForExcel && !this.selectedFormulaRecord && !this.resultAfterTest) {
       const newRecord: MainItem = {
         //
         invoiceMainItemCode: 0,
@@ -828,7 +842,7 @@ export class InvoiceComponent {
         description: mainItem.description,
 
         formulaCode: mainItem.formulaCode,
-         quantity: mainItem.quantity,
+        quantity: mainItem.quantity,
         amountPerUnit: mainItem.amountPerUnit,
         total: mainItem.total,
         profitMargin: mainItem.profitMargin,
@@ -836,7 +850,8 @@ export class InvoiceComponent {
         doNotPrint: mainItem.doNotPrint,
         Type: '',
         isPersisted: false,
-        subItems: []
+        //subItems: []
+        subItems: mainItem.subItems
       }
       console.log(newRecord);
       if (newRecord.quantity === 0) {
@@ -904,6 +919,55 @@ export class InvoiceComponent {
   parsedData: MainItem[] = []; // Parsed data from the Excel file
   displayedColumns: string[] = []; // Column headers from the Excel file
 
+
+  // worked function without subitems:
+  // onFileSelect(event: any, fileUploader: any) {
+  //   console.log('Records before :', this.parsedData);
+
+  //   const file = event.files[0];
+  //   const reader = new FileReader();
+
+  //   reader.onload = (e: any) => {
+  //     const binaryData = e.target.result;
+  //     const workbook = XLSX.read(binaryData, { type: 'binary' });
+
+  //     const sheetName = workbook.SheetNames[0];
+  //     const sheet = workbook.Sheets[sheetName];
+
+  //     const jsonData: any[][] = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+  //     if (jsonData.length > 0) {
+  //       this.displayedColumns = jsonData[0].filter((col: any) => typeof col === 'string' && col.trim() !== '') as string[];
+  //       this.parsedData = jsonData
+  //         .slice(1) // Skip the header row
+  //         .map((row: any[]) => {
+  //           const rowData: any = {};
+  //           this.displayedColumns.forEach((col, index) => {
+  //             rowData[col] = row[index] !== undefined ? row[index] : '';
+  //           });
+  //           return rowData;
+  //         })
+  //         .filter((rowData: any) => rowData.Type === 'Main Item'); // Filter only "Main Item" rows
+
+  //       console.log('Filtered Records :', this.parsedData);
+  //       this.messageService.add({
+  //         severity: 'success',
+  //         summary: 'Success',
+  //         detail: 'Main Item records copied from the Excel sheet successfully!',
+  //         life: 4000,
+  //       });
+  //     } else {
+  //       this.displayedColumns = [];
+  //       this.parsedData = [];
+  //     }
+
+  //     fileUploader.clear();
+  //   };
+
+  //   reader.readAsBinaryString(file);
+  // }
+
+  // new with subitems:
   onFileSelect(event: any, fileUploader: any) {
     console.log('Records before :', this.parsedData);
 
@@ -921,22 +985,35 @@ export class InvoiceComponent {
 
       if (jsonData.length > 0) {
         this.displayedColumns = jsonData[0].filter((col: any) => typeof col === 'string' && col.trim() !== '') as string[];
-        this.parsedData = jsonData
-          .slice(1) // Skip the header row
-          .map((row: any[]) => {
-            const rowData: any = {};
-            this.displayedColumns.forEach((col, index) => {
-              rowData[col] = row[index] !== undefined ? row[index] : '';
-            });
-            return rowData;
-          })
-          .filter((rowData: any) => rowData.Type === 'Main Item'); // Filter only "Main Item" rows
 
-        console.log('Filtered Records :', this.parsedData);
+        const rawParsedData = jsonData.slice(1).map((row: any[]) => {
+          const rowData: any = {};
+          this.displayedColumns.forEach((col, index) => {
+            rowData[col] = row[index] !== undefined ? row[index] : '';
+          });
+          return rowData;
+        });
+
+        // Parse Main Items and their related Sub Items
+        this.parsedData = [];
+        let currentMainItem: any = null;
+
+        rawParsedData.forEach((rowData: any) => {
+          if (rowData.Type === 'Main Item') {
+            // Start a new Main Item
+            currentMainItem = { ...rowData, subItems: [] };
+            this.parsedData.push(currentMainItem);
+          } else if (rowData.Type === 'Sub Item' && currentMainItem) {
+            // Add Sub Item to the current Main Item
+            currentMainItem.subItems.push(rowData);
+          }
+        });
+
+        console.log('Hierarchical Parsed Data :', this.parsedData);
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
-          detail: 'Main Item records copied from the Excel sheet successfully!',
+          detail: 'Main Item and related Sub Item records processed successfully!',
           life: 4000,
         });
       } else {
@@ -949,7 +1026,6 @@ export class InvoiceComponent {
 
     reader.readAsBinaryString(file);
   }
-
 
   updateProfitMargin(value: number) {
     console.log(value);
@@ -3280,6 +3356,7 @@ export class InvoiceComponent {
       mainItem.subItems?.forEach((subItem) => {
         transformed.push({
           Type: 'Sub Item',
+          invoiceSubItemCode: subItem.invoiceSubItemCode,
           serviceNumberCode: subItem.serviceNumberCode,
           description: subItem.description,
           quantity: subItem.quantity,

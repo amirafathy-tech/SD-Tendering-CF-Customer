@@ -22,6 +22,8 @@ export class SubItem {
 
 export class MainItem {
 
+    invoiceSubItemCode?:number;
+
     Type:string='';
 
     isPersisted: boolean=false;
