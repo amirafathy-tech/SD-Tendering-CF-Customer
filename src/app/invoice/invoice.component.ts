@@ -1145,8 +1145,19 @@ export class InvoiceComponent {
     isPersisted: false,
   };
 
+
   addMainItemInMemory() {
-    if (!this.selectedServiceNumberRecord && !this.selectedFormulaRecord) {
+    if(this.newMainItem.description =='' && this.newMainItem.quantity ===0 && this.newMainItem.amountPerUnit === 0){
+      console.log("hereee");
+      console.log(this.newMainItem.description,this.newMainItem.quantity,this.newMainItem.amountPerUnit)
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Description & Quantity and AmountPerUnit are required.',
+        life: 3000,
+      });
+    }
+   else if (!this.selectedServiceNumberRecord && !this.selectedFormulaRecord) {
       // if user didn't select serviceNumber && didn't select formula
       const newRecord: MainItem = {
         unitOfMeasurementCode: this.selectedUnitOfMeasure,
@@ -1157,6 +1168,7 @@ export class InvoiceComponent {
         amountPerUnit: this.newMainItem.amountPerUnit,
         total: this.newMainItem.total,
         profitMargin: this.newMainItem.profitMargin,
+        amountPerUnitWithProfit:this.newMainItem.amountPerUnitWithProfit,
         totalWithProfit: this.newMainItem.totalWithProfit,
         temporaryDeletion: 'temporary',
         referenceId: this.documentNumber,
