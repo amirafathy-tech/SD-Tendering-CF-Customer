@@ -210,7 +210,7 @@ export class InvoiceComponent {
 
   filterRecords(): void {
     // this.originalMainItemsRecords = [...this.mainItemsRecords];
-    if (this.searchKey && this.searchKey.trim() !== '') {
+    if (this.searchKey && this.searchKey.trim() !== ' ') {
       this.mainItemsRecords = this.mainItemsRecords.filter((record: any) =>
         record.description.toLowerCase().includes(this.searchKey.toLowerCase())
       );
@@ -284,6 +284,7 @@ export class InvoiceComponent {
         quantity: this.resultAfterTest,
         // quantity: item.quantity,
         amountPerUnit: mainItem.grossPrice,
+        amountPerUnitWithProfit:mainItem.amountPerUnitWithProfit,
         total: mainItem.netValue,
         profitMargin: mainItem.profitMargin,
         totalWithProfit: mainItem.totalWithProfit,
@@ -316,6 +317,10 @@ export class InvoiceComponent {
             console.log('mainitem with total:', res);
             newRecord.total = res.total;
             newRecord.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
+            if(mainItem.amountPerUnitWithProfit !== undefined ){
+              console.log(mainItem.amountPerUnitWithProfit);
+              newRecord.amountPerUnitWithProfit=mainItem.amountPerUnitWithProfit;
+            }
             newRecord.totalWithProfit = res.totalWithProfit;
             console.log(' Record:', newRecord);
             const filteredRecord = Object.fromEntries(
@@ -363,6 +368,7 @@ export class InvoiceComponent {
         quantity: this.resultAfterTest,
         // quantity: item.quantity,
         amountPerUnit: mainItem.grossPrice,
+        amountPerUnitWithProfit:mainItem.amountPerUnitWithProfit,
         total: mainItem.netValue,
         profitMargin: mainItem.profitMargin,
         totalWithProfit: mainItem.totalWithProfit,
@@ -395,6 +401,10 @@ export class InvoiceComponent {
             console.log('mainitem with total:', res);
             newRecord.total = res.total;
             newRecord.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
+            if(mainItem.amountPerUnitWithProfit !== undefined ){
+              console.log(mainItem.amountPerUnitWithProfit);
+              newRecord.amountPerUnitWithProfit=mainItem.amountPerUnitWithProfit;
+            }
             newRecord.totalWithProfit = res.totalWithProfit;
             console.log(' Record:', newRecord);
             const filteredRecord = Object.fromEntries(
@@ -441,6 +451,7 @@ export class InvoiceComponent {
         formulaCode: mainItem.formulaCode,
         quantity: mainItem.quantity,
         amountPerUnit: mainItem.grossPrice,
+        amountPerUnitWithProfit:mainItem.amountPerUnitWithProfit,
         total: mainItem.netValue,
         profitMargin: mainItem.profitMargin,
         totalWithProfit: mainItem.totalWithProfit,
@@ -473,6 +484,10 @@ export class InvoiceComponent {
             console.log('mainitem with total:', res);
             newRecord.total = res.total;
             newRecord.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
+            if(mainItem.amountPerUnitWithProfit !== undefined ){
+              console.log(mainItem.amountPerUnitWithProfit);
+              newRecord.amountPerUnitWithProfit=mainItem.amountPerUnitWithProfit;
+            }
             newRecord.totalWithProfit = res.totalWithProfit;
             console.log(' Record:', newRecord);
             const filteredRecord = Object.fromEntries(
@@ -519,6 +534,7 @@ export class InvoiceComponent {
         formulaCode: mainItem.formulaCode,
         quantity: mainItem.quantity,
         amountPerUnit: mainItem.grossPrice,
+        amountPerUnitWithProfit:mainItem.amountPerUnitWithProfit,
         total: mainItem.netValue,
         profitMargin: mainItem.profitMargin,
         totalWithProfit: mainItem.totalWithProfit,
@@ -551,6 +567,10 @@ export class InvoiceComponent {
             console.log('mainitem with total:', res);
             newRecord.total = res.total;
             newRecord.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
+            if(mainItem.amountPerUnitWithProfit !== undefined ){
+              console.log(mainItem.amountPerUnitWithProfit);
+              newRecord.amountPerUnitWithProfit=mainItem.amountPerUnitWithProfit;
+            }
             newRecord.totalWithProfit = res.totalWithProfit;
             console.log(' Record:', newRecord);
             const filteredRecord = Object.fromEntries(
@@ -606,6 +626,7 @@ export class InvoiceComponent {
         quantity: this.resultAfterTest,
         // quantity: item.quantity,
         amountPerUnit: mainItem.amountPerUnit,
+        amountPerUnitWithProfit:mainItem.amountPerUnitWithProfit,
         total: mainItem.total,
         profitMargin: mainItem.profitMargin,
         totalWithProfit: mainItem.totalWithProfit,
@@ -639,6 +660,10 @@ export class InvoiceComponent {
             console.log('mainitem with total:', res);
             newRecord.total = res.total;
             newRecord.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
+            if(mainItem.amountPerUnitWithProfit !== undefined ){
+              console.log(mainItem.amountPerUnitWithProfit);
+              newRecord.amountPerUnitWithProfit=mainItem.amountPerUnitWithProfit;
+            }
             newRecord.totalWithProfit = res.totalWithProfit;
             console.log(' Record:', newRecord);
             const filteredRecord = Object.fromEntries(
@@ -686,6 +711,7 @@ export class InvoiceComponent {
         quantity: this.resultAfterTest,
         // quantity: item.quantity,
         amountPerUnit: mainItem.amountPerUnit,
+        amountPerUnitWithProfit:mainItem.amountPerUnitWithProfit,
         total: mainItem.total,
         profitMargin: mainItem.profitMargin,
         totalWithProfit: mainItem.totalWithProfit,
@@ -719,6 +745,10 @@ export class InvoiceComponent {
             console.log('mainitem with total:', res);
             newRecord.total = res.total;
             newRecord.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
+            if(mainItem.amountPerUnitWithProfit !== undefined ){
+              console.log(mainItem.amountPerUnitWithProfit);
+              newRecord.amountPerUnitWithProfit=mainItem.amountPerUnitWithProfit;
+            }
             newRecord.totalWithProfit = res.totalWithProfit;
             console.log(' Record:', newRecord);
             const filteredRecord = Object.fromEntries(
@@ -765,6 +795,7 @@ export class InvoiceComponent {
         formulaCode: mainItem.formulaCode,
         quantity: mainItem.quantity,
         amountPerUnit: mainItem.amountPerUnit,
+        amountPerUnitWithProfit:mainItem.amountPerUnitWithProfit,
         total: mainItem.total,
         profitMargin: mainItem.profitMargin,
         totalWithProfit: mainItem.totalWithProfit,
@@ -798,6 +829,10 @@ export class InvoiceComponent {
             console.log('mainitem with total:', res);
             newRecord.total = res.total;
             newRecord.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
+            if(mainItem.amountPerUnitWithProfit !== undefined ){
+              console.log(mainItem.amountPerUnitWithProfit);
+              newRecord.amountPerUnitWithProfit=mainItem.amountPerUnitWithProfit;
+            }
             newRecord.totalWithProfit = res.totalWithProfit;
             console.log(' Record:', newRecord);
             const filteredRecord = Object.fromEntries(
@@ -844,6 +879,7 @@ export class InvoiceComponent {
         formulaCode: mainItem.formulaCode,
         quantity: mainItem.quantity,
         amountPerUnit: mainItem.amountPerUnit,
+        amountPerUnitWithProfit:mainItem.amountPerUnitWithProfit,
         total: mainItem.total,
         profitMargin: mainItem.profitMargin,
         totalWithProfit: mainItem.totalWithProfit,
@@ -877,6 +913,10 @@ export class InvoiceComponent {
             console.log('mainitem with total:', res);
             newRecord.total = res.total;
             newRecord.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
+            if(mainItem.amountPerUnitWithProfit !== undefined ){
+              console.log(mainItem.amountPerUnitWithProfit);
+              newRecord.amountPerUnitWithProfit=mainItem.amountPerUnitWithProfit;
+            }
             newRecord.totalWithProfit = res.totalWithProfit;
             console.log(' Record:', newRecord);
             const filteredRecord = Object.fromEntries(
@@ -1137,6 +1177,7 @@ export class InvoiceComponent {
     unitOfMeasurementCode: '',
     formulaCode: '',
     amountPerUnit: 0,
+    //amountPerUnitWithProfit:0,
     currencyCode: '',
     total: 0,
     profitMargin: 0,
@@ -1145,7 +1186,12 @@ export class InvoiceComponent {
     isPersisted: false,
   };
 
-
+  // onAmountWithProfitChange(event: Event): void {
+  //   const inputValue = (event.target as HTMLInputElement).value;
+  //   console.log(inputValue);
+  //   this.newMainItem.amountPerUnitWithProfit = inputValue ? +inputValue : undefined;
+  // }
+  
   addMainItemInMemory() {
     if(this.newMainItem.description =='' && this.newMainItem.quantity ===0 && this.newMainItem.amountPerUnit === 0){
       console.log("hereee");
@@ -1169,6 +1215,12 @@ export class InvoiceComponent {
         total: this.newMainItem.total,
         profitMargin: this.newMainItem.profitMargin,
         amountPerUnitWithProfit:this.newMainItem.amountPerUnitWithProfit,
+        // this.newMainItem.profitMargin === 0
+        // ? this.newMainItem.amountPerUnit
+        // : (this.newMainItem.amountPerUnit ?? 0) *
+        //     ((this.newMainItem.profitMargin ?? 0) / 100) +
+        //   (this.newMainItem.amountPerUnit ?? 0),
+        //this.newMainItem.amountPerUnitWithProfit,
         totalWithProfit: this.newMainItem.totalWithProfit,
         temporaryDeletion: 'temporary',
         referenceId: this.documentNumber,
@@ -1192,6 +1244,11 @@ export class InvoiceComponent {
           console.log('mainitem with total:', res);
           newRecord.total = res.total;
           newRecord.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
+          // this.newMainItem.amountPerUnitWithProfit !==0 || this.newMainItem.amountPerUnitWithProfit !== undefined || this.newMainItem.amountPerUnitWithProfit !== null
+          if(this.newMainItem.amountPerUnitWithProfit !== undefined ){
+            console.log(this.newMainItem.amountPerUnitWithProfit);
+            newRecord.amountPerUnitWithProfit=this.newMainItem.amountPerUnitWithProfit;
+          }
           newRecord.totalWithProfit = res.totalWithProfit;
           console.log(' Record:', newRecord);
 
@@ -1245,6 +1302,7 @@ export class InvoiceComponent {
         description: this.newMainItem.description,
         quantity: this.resultAfterTest,
         amountPerUnit: this.newMainItem.amountPerUnit,
+        amountPerUnitWithProfit:this.newMainItem.amountPerUnitWithProfit,
         total: this.newMainItem.total,
         profitMargin: this.newMainItem.profitMargin,
         totalWithProfit: this.newMainItem.totalWithProfit,
@@ -1278,6 +1336,10 @@ export class InvoiceComponent {
           console.log('mainitem with total:', res);
           newRecord.total = res.total;
           newRecord.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
+          if(this.newMainItem.amountPerUnitWithProfit !== undefined ){
+            console.log(this.newMainItem.amountPerUnitWithProfit);
+            newRecord.amountPerUnitWithProfit=this.newMainItem.amountPerUnitWithProfit;
+          }
           newRecord.totalWithProfit = res.totalWithProfit;
           const filteredRecord = Object.fromEntries(
             Object.entries(newRecord).filter(([_, value]) => {
@@ -1324,6 +1386,7 @@ export class InvoiceComponent {
         description: this.selectedServiceNumberRecord.description,
         quantity: this.newMainItem.quantity,
         amountPerUnit: this.newMainItem.amountPerUnit,
+        amountPerUnitWithProfit:this.newMainItem.amountPerUnitWithProfit,
         total: this.newMainItem.total,
         profitMargin: this.newMainItem.profitMargin,
         totalWithProfit: this.newMainItem.totalWithProfit,
@@ -1357,6 +1420,10 @@ export class InvoiceComponent {
           console.log('mainitem with total:', res);
           newRecord.total = res.total;
           newRecord.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
+          if(this.newMainItem.amountPerUnitWithProfit !== undefined ){
+            console.log(this.newMainItem.amountPerUnitWithProfit);
+            newRecord.amountPerUnitWithProfit=this.newMainItem.amountPerUnitWithProfit;
+          }
           newRecord.totalWithProfit = res.totalWithProfit;
           const filteredRecord = Object.fromEntries(
             Object.entries(newRecord).filter(([_, value]) => {
@@ -1402,6 +1469,7 @@ export class InvoiceComponent {
         description: this.selectedServiceNumberRecord.description,
         quantity: this.resultAfterTest,
         amountPerUnit: this.newMainItem.amountPerUnit,
+        amountPerUnitWithProfit:this.newMainItem.amountPerUnitWithProfit,
         total: this.newMainItem.total,
         profitMargin: this.newMainItem.profitMargin,
         totalWithProfit: this.newMainItem.totalWithProfit,
@@ -1435,6 +1503,10 @@ export class InvoiceComponent {
           console.log('mainitem with total:', res);
           newRecord.total = res.total;
           newRecord.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
+          if(this.newMainItem.amountPerUnitWithProfit !== undefined ){
+            console.log(this.newMainItem.amountPerUnitWithProfit);
+            newRecord.amountPerUnitWithProfit=this.newMainItem.amountPerUnitWithProfit;
+          }
           newRecord.totalWithProfit = res.totalWithProfit;
           const filteredRecord = Object.fromEntries(
             Object.entries(newRecord).filter(([_, value]) => {
@@ -2123,10 +2195,10 @@ export class InvoiceComponent {
   clonedMainItem: { [s: number]: MainItem } = {};
   onMainItemEditInit(record: MainItem) {
     this.clonedMainItem[record.invoiceMainItemCode] = { ...record };
+   // record.amountPerUnitWithProfit = undefined;
   }
   onMainItemEditSave(index: number, record: MainItem) {
     console.log(record);
-
     const {
       invoiceMainItemCode,
       total,
@@ -2169,6 +2241,10 @@ export class InvoiceComponent {
           console.log('mainitem with total:', res);
           newRecord.total = res.total;
           newRecord.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
+          if(record.amountPerUnitWithProfit !== null ){
+            console.log(record.amountPerUnitWithProfit);
+            newRecord.amountPerUnitWithProfit=record.amountPerUnitWithProfit;
+          }
           newRecord.totalWithProfit = res.totalWithProfit;
           const mainItemIndex = this.mainItemsRecords.findIndex(
             (item) => item.invoiceMainItemCode === invoiceMainItemCode
@@ -2241,6 +2317,10 @@ export class InvoiceComponent {
           // this.totalValue = 0;
           newRecord.total = res.total;
           newRecord.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
+          if(record.amountPerUnitWithProfit !== null ){
+            console.log(record.amountPerUnitWithProfit);
+            newRecord.amountPerUnitWithProfit=record.amountPerUnitWithProfit;
+          }
           newRecord.totalWithProfit = res.totalWithProfit;
 
           // Update mainItemsRecords array in the component to reflect the changes
@@ -2310,6 +2390,10 @@ export class InvoiceComponent {
           // this.totalValue = 0;
           newRecord.total = res.total;
           newRecord.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
+          if(record.amountPerUnitWithProfit !== null ){
+            console.log(record.amountPerUnitWithProfit);
+            newRecord.amountPerUnitWithProfit=record.amountPerUnitWithProfit;
+          }
           newRecord.totalWithProfit = res.totalWithProfit;
 
           // Update mainItemsRecords array in the component to reflect the changes
@@ -2369,6 +2453,10 @@ export class InvoiceComponent {
           console.log('mainitem with total:', res);
           updatedMainItem.total = res.total;
           updatedMainItem.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
+          if(record.amountPerUnitWithProfit !== null ){
+            console.log(record.amountPerUnitWithProfit);
+            updatedMainItem.amountPerUnitWithProfit=record.amountPerUnitWithProfit;
+          }
           updatedMainItem.totalWithProfit = res.totalWithProfit;
           const mainItemIndex = this.mainItemsRecords.findIndex(
             (item) => item.invoiceMainItemCode === invoiceMainItemCode

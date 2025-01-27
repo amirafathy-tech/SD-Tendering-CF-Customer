@@ -55,6 +55,7 @@ export class ModelSpecDetails {
     manualPriceEntryAllowed?: boolean;
     actualQuantity?: number;
     actualPercentage?: number;
+    amountPerUnitWithProfit?: number;
 
     profitMargin?: number;
     totalWithProfit: number=0;

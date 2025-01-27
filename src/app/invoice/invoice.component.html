@@ -333,13 +333,38 @@
       <td style="min-width: 9.5rem">
         <p-cellEditor>
           <ng-template pTemplate="input">
-            {{
+            <!-- {{
             (mainItem.profitMargin ?? 0) === 0
             ? (mainItem.amountPerUnit ?? 0) 
             : (mainItem.amountPerUnit ?? 0) *
             ((mainItem.profitMargin ?? 0) / 100) +
             (mainItem.amountPerUnit ?? 0)
-            }}
+            }} -->
+            <ng-container *ngIf="(mainItem.profitMargin ?? 0) === 0">
+              <input 
+                pInputNumber 
+                class="rounded-input" 
+                name="amountPerUnitWithProfit" 
+                type="number" 
+                [min]="0" 
+                placeholder="{{
+                  (mainItem.amountPerUnit ?? 0)
+                }}" 
+                [(ngModel)]="mainItem.amountPerUnitWithProfit" />
+            </ng-container>
+          
+            <ng-container *ngIf="(mainItem.profitMargin ?? 0) !== 0">
+              <input 
+                pInputNumber 
+                class="rounded-input" 
+                name="amountPerUnitWithProfit" 
+                type="number" 
+                [min]="0" 
+                placeholder="{{
+                  (mainItem.amountPerUnit ?? 0) * ((mainItem.profitMargin ?? 0) / 100) + (mainItem.amountPerUnit ?? 0)
+                }}" 
+                [(ngModel)]="mainItem.amountPerUnitWithProfit" />
+            </ng-container> 
             <!-- <input pInputNumber name="amountPerUnitWithProfit" type="number" [min]="0"
                             [(ngModel)]="mainItem.amountPerUnitWithProfit"> -->
           </ng-template>
@@ -942,13 +967,38 @@
               [(ngModel)]="item.profitMargin" />
           </td>
           <td style="min-width: 10rem">
-            {{
+            <!-- {{
             (item.profitMargin ?? 0) === 0
             ? (item.grossPrice )
             : (item.grossPrice) *
             ((item.profitMargin ?? 0) / 100) +
             (item.grossPrice )
-            }}
+            }} -->
+            <ng-container *ngIf="(item.profitMargin ?? 0) === 0">
+              <input 
+                pInputNumber 
+                class="rounded-input" 
+                name="amountPerUnitWithProfit" 
+                type="number" 
+                [min]="0" 
+                placeholder="{{
+                  (item.grossPrice)
+                }}" 
+                [(ngModel)]="item.amountPerUnitWithProfit" />
+            </ng-container>
+          
+            <ng-container *ngIf="(item.profitMargin ?? 0) !== 0">
+              <input 
+                pInputNumber 
+                class="rounded-input" 
+                name="amountPerUnitWithProfit" 
+                type="number" 
+                [min]="0" 
+                placeholder="{{
+                  (item.grossPrice) * ((item.profitMargin ?? 0) / 100) + (item.grossPrice)
+                }}" 
+                [(ngModel)]="item.amountPerUnitWithProfit" />
+            </ng-container>   
           </td>
           <td style="min-width: 10rem">
             <ng-container *ngIf="selectedFormulaRecord && resultAfterTest">
@@ -1114,13 +1164,38 @@
               [(ngModel)]="mainItem.profitMargin" />
           </td>
           <td style="min-width: 10rem">
-            {{
+            <!-- {{
             (mainItem.profitMargin ?? 0) === 0
             ? (mainItem.amountPerUnit ?? 0)
             : (mainItem.amountPerUnit ?? 0) *
             ((mainItem.profitMargin ?? 0) / 100) +
             (mainItem.amountPerUnit ?? 0)
-            }}
+            }} -->
+            <ng-container *ngIf="(mainItem.profitMargin ?? 0) === 0">
+              <input 
+                pInputNumber 
+                class="rounded-input" 
+                name="amountPerUnitWithProfit" 
+                type="number" 
+                [min]="0" 
+                placeholder="{{
+                  (mainItem.amountPerUnit ?? 0)
+                }}" 
+                [(ngModel)]="mainItem.amountPerUnitWithProfit" />
+            </ng-container>
+          
+            <ng-container *ngIf="(mainItem.profitMargin ?? 0) !== 0">
+              <input 
+                pInputNumber 
+                class="rounded-input" 
+                name="amountPerUnitWithProfit" 
+                type="number" 
+                [min]="0" 
+                placeholder="{{
+                  (mainItem.amountPerUnit ?? 0) * ((mainItem.profitMargin ?? 0) / 100) + (mainItem.amountPerUnit ?? 0)
+                }}" 
+                [(ngModel)]="mainItem.amountPerUnitWithProfit" />
+            </ng-container>  
           </td>
           <td style="min-width: 10rem">
             <ng-container *ngIf="selectedFormulaRecord && resultAfterTest">
@@ -1280,24 +1355,26 @@
       <td style="min-width: 10rem">
          
  
-        {{
+        <!-- {{
           (newMainItem.profitMargin ?? 0) === 0
             ? (newMainItem.amountPerUnit ?? 0)
             : (newMainItem.amountPerUnit ?? 0) *
               ((newMainItem.profitMargin ?? 0) / 100) +
               (newMainItem.amountPerUnit ?? 0)
-        }}
+        }} -->
        
 
-        <!-- <ng-container *ngIf="(newMainItem.profitMargin ?? 0) === 0">
+         <ng-container *ngIf="(newMainItem.profitMargin ?? 0) === 0">
           <input 
             pInputNumber 
             class="rounded-input" 
-            name="amountPerUnit" 
+            name="amountPerUnitWithProfit" 
             type="number" 
             [min]="0" 
-            [value]="newMainItem.amountPerUnit"
-            [(ngModel)]="newMainItem.amountPerUnit" />
+            placeholder="{{
+              (newMainItem.amountPerUnit ?? 0)
+            }}" 
+            [(ngModel)]="newMainItem.amountPerUnitWithProfit" />
         </ng-container>
       
         <ng-container *ngIf="(newMainItem.profitMargin ?? 0) !== 0">
@@ -1311,8 +1388,58 @@
               (newMainItem.amountPerUnit ?? 0) * ((newMainItem.profitMargin ?? 0) / 100) + (newMainItem.amountPerUnit ?? 0)
             }}" 
             [(ngModel)]="newMainItem.amountPerUnitWithProfit" />
+        </ng-container>   
+
+        <!-- <ng-container *ngIf="(newMainItem.profitMargin ?? 0) === 0">
+          <input 
+            pInputNumber 
+            class="rounded-input" 
+            name="amountPerUnit" 
+            type="number" 
+            [min]="0" 
+            [(ngModel)]="newMainItem.amountPerUnit" />
+        </ng-container>
+      
+        <ng-container *ngIf="(newMainItem.profitMargin ?? 0) !== 0">
+          <input 
+            pInputNumber 
+            class="rounded-input" 
+            name="amountPerUnitWithProfit" 
+            type="number" 
+            [min]="0" 
+            [value]="
+              newMainItem.amountPerUnitWithProfit || 
+              ((newMainItem.amountPerUnit ?? 0) * ((newMainItem.profitMargin ?? 0) / 100) + (newMainItem.amountPerUnit ?? 0))
+            " 
+          (input)="onAmountWithProfitChange($event)" />
         </ng-container> -->
       
+        <!-- <ng-container *ngIf="(newMainItem.profitMargin ?? 0) === 0">
+          <input 
+            pInputNumber 
+            class="rounded-input" 
+            name="amountPerUnit" 
+            type="number" 
+            [min]="0" 
+            placeholder="{{ newMainItem.amountPerUnit ?? 0 }}" 
+            [(ngModel)]="newMainItem.amountPerUnitWithProfit" 
+            (ngModelChange)="newMainItem.amountPerUnitWithProfit = (newMainItem.amountPerUnit ?? 0)" />
+        </ng-container>
+        
+        <ng-container *ngIf="(newMainItem.profitMargin ?? 0) !== 0">
+          <input 
+            pInputNumber 
+            class="rounded-input" 
+            name="amountPerUnitWithProfit" 
+            type="number" 
+            [min]="0" 
+            placeholder="{{
+              (newMainItem.amountPerUnit ?? 0) * ((newMainItem.profitMargin ?? 0) / 100) + (newMainItem.amountPerUnit ?? 0)
+            }}" 
+            [(ngModel)]="newMainItem.amountPerUnitWithProfit" 
+            (ngModelChange)="newMainItem.amountPerUnitWithProfit = ((newMainItem.amountPerUnit ?? 0) * ((newMainItem.profitMargin ?? 0) / 100) + (newMainItem.amountPerUnit ?? 0))" />
+        </ng-container> -->
+        
       </td>
       <td style="min-width: 10rem">
         <ng-container *ngIf="selectedFormulaRecord && resultAfterTest">

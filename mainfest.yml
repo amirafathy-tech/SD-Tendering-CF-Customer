@@ -1,9 +1,7 @@
 applications:
-- name: tendering
+- name: tendering-app-test
   instances: 1
-  memory: 1000MB
+  memory: 512MB
   buildpacks:
     - staticfile_buildpack
   path: dist/btp-sd-app
-
-
