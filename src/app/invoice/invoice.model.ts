@@ -22,6 +22,8 @@ export class SubItem {
 
 export class MainItem {
 
+    originalIndex?: number;
+
     invoiceSubItemCode?:number;
 
     Type:string='';

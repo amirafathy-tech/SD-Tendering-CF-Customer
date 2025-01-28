@@ -126,7 +126,8 @@
           (onChange)="onMainItemSelection($event, mainItem)"></p-checkbox>
       </td>
       <td style="min-width: 10rem">
-        {{ rowIndex + ri + 1 }}
+        <!-- {{ rowIndex + ri + 1 }} -->
+       {{mainItem.originalIndex}}
       </td>
       <td style="min-width: 10rem"></td>
       <td style="min-width: 9.5rem" pReorderableColumn>

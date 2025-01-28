@@ -53,6 +53,7 @@ import { TruncateWordsPipe } from './pipes/truncate-words.pipe';
 import { SearchPipe } from './pipes/search.pipe';
 import { HomePageComponent } from './home-page/home-page.component';
 import { CloudDataComponent } from './cloud-data/cloud-data.component';
+import { ConfirmationService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -104,6 +105,7 @@ import { CloudDataComponent } from './cloud-data/cloud-data.component';
     NgHttpLoaderModule.forRoot(),
   ],
   providers: [
+    //ConfirmationService,
     provideClientHydration(),
     {
       provide: HTTP_INTERCEPTORS,

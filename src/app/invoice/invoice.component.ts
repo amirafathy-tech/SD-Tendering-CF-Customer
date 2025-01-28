@@ -126,6 +126,7 @@ export class InvoiceComponent {
   }
 
   ngOnInit() {
+
     this._ApiService
       .get<ServiceMaster[]>('servicenumbers')
       .subscribe((response) => {
@@ -145,6 +146,7 @@ export class InvoiceComponent {
       this.mainItemsRecords = [
         ...this._InvoiceService.getMainItems(this.documentNumber),
       ];
+      this.originalMainItemsRecords = [...this.mainItemsRecords];
       console.log(this.mainItemsRecords);
     }
     if (this.savedDBApp) {
@@ -168,7 +170,7 @@ export class InvoiceComponent {
       .subscribe({
         next: (res) => {
           this.mainItemsRecords = res
-            .map((item) => ({ ...item, isPersisted: true }))
+            .map((item, index) => ({ ...item, isPersisted: true, originalIndex: index + 1 }))
             .sort((a, b) => a.invoiceMainItemCode - b.invoiceMainItemCode);
           this.itemText = this.mainItemsRecords[0].salesQuotationItemText
             ? this.mainItemsRecords[0].salesQuotationItemText
@@ -177,6 +179,8 @@ export class InvoiceComponent {
           console.log(this.mainItemsRecords);
           console.log(this.mainItemsRecords[0].subItems);
           console.log(this.mainItemsRecords[0].subItems.length);
+
+          this.originalMainItemsRecords = [...this.mainItemsRecords];
 
           this.loading = false;
           this.totalValue = this.mainItemsRecords.reduce(
@@ -205,20 +209,21 @@ export class InvoiceComponent {
   }
 
   // search:
-  // originalMainItemsRecords: MainItem[] = []; // Keep a copy of the original records
+  originalMainItemsRecords: MainItem[] = []; // Keep a copy of the original records
 
 
   filterRecords(): void {
-    // this.originalMainItemsRecords = [...this.mainItemsRecords];
+    //  this.originalMainItemsRecords = [...this.mainItemsRecords];
     if (this.searchKey && this.searchKey.trim() !== ' ') {
-      this.mainItemsRecords = this.mainItemsRecords.filter((record: any) =>
+      this.mainItemsRecords = this.originalMainItemsRecords.filter((record: any) =>
         record.description.toLowerCase().includes(this.searchKey.toLowerCase())
       );
     } else {
       //  this.mainItemsRecords = [...this.originalMainItemsRecords];
       console.log("else");
 
-      this.mainItemsRecords = [...this.mainItemsRecords];
+      //this.mainItemsRecords = [...this.mainItemsRecords];
+      this.mainItemsRecords = [...this.originalMainItemsRecords];
       console.log(this.mainItemsRecords);
 
     }
@@ -274,6 +279,7 @@ export class InvoiceComponent {
       const newRecord: MainItem = {
         //
         invoiceMainItemCode: 0,
+        originalIndex: this.mainItemsRecords.length + 1,
         //
         serviceNumberCode: mainItem.serviceNumberCode,
         unitOfMeasurementCode: this.selectedServiceNumberRecordForModels.unitOfMeasurementCode,
@@ -284,7 +290,7 @@ export class InvoiceComponent {
         quantity: this.resultAfterTest,
         // quantity: item.quantity,
         amountPerUnit: mainItem.grossPrice,
-        amountPerUnitWithProfit:mainItem.amountPerUnitWithProfit,
+        amountPerUnitWithProfit: mainItem.amountPerUnitWithProfit,
         total: mainItem.netValue,
         profitMargin: mainItem.profitMargin,
         totalWithProfit: mainItem.totalWithProfit,
@@ -317,9 +323,9 @@ export class InvoiceComponent {
             console.log('mainitem with total:', res);
             newRecord.total = res.total;
             newRecord.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
-            if(mainItem.amountPerUnitWithProfit !== undefined ){
+            if (mainItem.amountPerUnitWithProfit !== undefined) {
               console.log(mainItem.amountPerUnitWithProfit);
-              newRecord.amountPerUnitWithProfit=mainItem.amountPerUnitWithProfit;
+              newRecord.amountPerUnitWithProfit = mainItem.amountPerUnitWithProfit;
             }
             newRecord.totalWithProfit = res.totalWithProfit;
             console.log(' Record:', newRecord);
@@ -332,6 +338,9 @@ export class InvoiceComponent {
             this.addMainItem(filteredRecord);
 
             this.mainItemsRecords = [...this.mainItemsRecords];
+
+            this.originalMainItemsRecords = [...this.mainItemsRecords];
+
             this.savedInMemory = true;
             this.updateTotalValueAfterAction();
             console.log(this.mainItemsRecords);
@@ -358,6 +367,7 @@ export class InvoiceComponent {
       const newRecord: MainItem = {
         //
         invoiceMainItemCode: 0,
+        originalIndex: this.mainItemsRecords.length + 1,
         //
         serviceNumberCode: mainItem.serviceNumberCode,
         unitOfMeasurementCode: mainItem.unitOfMeasurementCode,
@@ -368,7 +378,7 @@ export class InvoiceComponent {
         quantity: this.resultAfterTest,
         // quantity: item.quantity,
         amountPerUnit: mainItem.grossPrice,
-        amountPerUnitWithProfit:mainItem.amountPerUnitWithProfit,
+        amountPerUnitWithProfit: mainItem.amountPerUnitWithProfit,
         total: mainItem.netValue,
         profitMargin: mainItem.profitMargin,
         totalWithProfit: mainItem.totalWithProfit,
@@ -401,9 +411,9 @@ export class InvoiceComponent {
             console.log('mainitem with total:', res);
             newRecord.total = res.total;
             newRecord.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
-            if(mainItem.amountPerUnitWithProfit !== undefined ){
+            if (mainItem.amountPerUnitWithProfit !== undefined) {
               console.log(mainItem.amountPerUnitWithProfit);
-              newRecord.amountPerUnitWithProfit=mainItem.amountPerUnitWithProfit;
+              newRecord.amountPerUnitWithProfit = mainItem.amountPerUnitWithProfit;
             }
             newRecord.totalWithProfit = res.totalWithProfit;
             console.log(' Record:', newRecord);
@@ -416,6 +426,9 @@ export class InvoiceComponent {
             this.addMainItem(filteredRecord);
 
             this.mainItemsRecords = [...this.mainItemsRecords];
+
+            this.originalMainItemsRecords = [...this.mainItemsRecords];
+
             this.savedInMemory = true;
             this.updateTotalValueAfterAction();
             console.log(this.mainItemsRecords);
@@ -442,6 +455,7 @@ export class InvoiceComponent {
       const newRecord: MainItem = {
         //
         invoiceMainItemCode: 0,
+        originalIndex: this.mainItemsRecords.length + 1,
         //
         serviceNumberCode: mainItem.serviceNumberCode,
         unitOfMeasurementCode: this.selectedServiceNumberRecordForModels.unitOfMeasurementCode,
@@ -451,7 +465,7 @@ export class InvoiceComponent {
         formulaCode: mainItem.formulaCode,
         quantity: mainItem.quantity,
         amountPerUnit: mainItem.grossPrice,
-        amountPerUnitWithProfit:mainItem.amountPerUnitWithProfit,
+        amountPerUnitWithProfit: mainItem.amountPerUnitWithProfit,
         total: mainItem.netValue,
         profitMargin: mainItem.profitMargin,
         totalWithProfit: mainItem.totalWithProfit,
@@ -484,9 +498,9 @@ export class InvoiceComponent {
             console.log('mainitem with total:', res);
             newRecord.total = res.total;
             newRecord.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
-            if(mainItem.amountPerUnitWithProfit !== undefined ){
+            if (mainItem.amountPerUnitWithProfit !== undefined) {
               console.log(mainItem.amountPerUnitWithProfit);
-              newRecord.amountPerUnitWithProfit=mainItem.amountPerUnitWithProfit;
+              newRecord.amountPerUnitWithProfit = mainItem.amountPerUnitWithProfit;
             }
             newRecord.totalWithProfit = res.totalWithProfit;
             console.log(' Record:', newRecord);
@@ -499,6 +513,9 @@ export class InvoiceComponent {
             this.addMainItem(filteredRecord);
 
             this.mainItemsRecords = [...this.mainItemsRecords];
+
+            this.originalMainItemsRecords = [...this.mainItemsRecords];
+
             this.savedInMemory = true;
             this.updateTotalValueAfterAction();
             console.log(this.mainItemsRecords);
@@ -525,6 +542,7 @@ export class InvoiceComponent {
       const newRecord: MainItem = {
         //
         invoiceMainItemCode: 0,
+        originalIndex: this.mainItemsRecords.length + 1,
         //
         serviceNumberCode: mainItem.serviceNumberCode,
         unitOfMeasurementCode: mainItem.unitOfMeasurementCode,
@@ -534,7 +552,7 @@ export class InvoiceComponent {
         formulaCode: mainItem.formulaCode,
         quantity: mainItem.quantity,
         amountPerUnit: mainItem.grossPrice,
-        amountPerUnitWithProfit:mainItem.amountPerUnitWithProfit,
+        amountPerUnitWithProfit: mainItem.amountPerUnitWithProfit,
         total: mainItem.netValue,
         profitMargin: mainItem.profitMargin,
         totalWithProfit: mainItem.totalWithProfit,
@@ -567,9 +585,9 @@ export class InvoiceComponent {
             console.log('mainitem with total:', res);
             newRecord.total = res.total;
             newRecord.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
-            if(mainItem.amountPerUnitWithProfit !== undefined ){
+            if (mainItem.amountPerUnitWithProfit !== undefined) {
               console.log(mainItem.amountPerUnitWithProfit);
-              newRecord.amountPerUnitWithProfit=mainItem.amountPerUnitWithProfit;
+              newRecord.amountPerUnitWithProfit = mainItem.amountPerUnitWithProfit;
             }
             newRecord.totalWithProfit = res.totalWithProfit;
             console.log(' Record:', newRecord);
@@ -582,6 +600,9 @@ export class InvoiceComponent {
             this.addMainItem(filteredRecord);
 
             this.mainItemsRecords = [...this.mainItemsRecords];
+
+            this.originalMainItemsRecords = [...this.mainItemsRecords];
+
             this.savedInMemory = true;
             this.updateTotalValueAfterAction();
             console.log(this.mainItemsRecords);
@@ -604,8 +625,8 @@ export class InvoiceComponent {
         //................
       }
     }
-
   }
+
   cancelModelSpecsDetails(item: any): void {
     this.selectedModelSpecsDetails = this.selectedModelSpecsDetails.filter(i => i !== item);
   }
@@ -616,6 +637,7 @@ export class InvoiceComponent {
       const newRecord: MainItem = {
         //
         invoiceMainItemCode: 0,
+        originalIndex: this.mainItemsRecords.length + 1,
         //
         serviceNumberCode: mainItem.serviceNumberCode,
         unitOfMeasurementCode: this.selectedServiceNumberRecordForExcel.unitOfMeasurementCode,
@@ -626,7 +648,7 @@ export class InvoiceComponent {
         quantity: this.resultAfterTest,
         // quantity: item.quantity,
         amountPerUnit: mainItem.amountPerUnit,
-        amountPerUnitWithProfit:mainItem.amountPerUnitWithProfit,
+        amountPerUnitWithProfit: mainItem.amountPerUnitWithProfit,
         total: mainItem.total,
         profitMargin: mainItem.profitMargin,
         totalWithProfit: mainItem.totalWithProfit,
@@ -660,9 +682,9 @@ export class InvoiceComponent {
             console.log('mainitem with total:', res);
             newRecord.total = res.total;
             newRecord.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
-            if(mainItem.amountPerUnitWithProfit !== undefined ){
+            if (mainItem.amountPerUnitWithProfit !== undefined) {
               console.log(mainItem.amountPerUnitWithProfit);
-              newRecord.amountPerUnitWithProfit=mainItem.amountPerUnitWithProfit;
+              newRecord.amountPerUnitWithProfit = mainItem.amountPerUnitWithProfit;
             }
             newRecord.totalWithProfit = res.totalWithProfit;
             console.log(' Record:', newRecord);
@@ -675,6 +697,8 @@ export class InvoiceComponent {
             this.addMainItem(filteredRecord);
 
             this.mainItemsRecords = [...this.mainItemsRecords];
+            this.originalMainItemsRecords = [...this.mainItemsRecords];
+
             this.savedInMemory = true;
             this.updateTotalValueAfterAction();
             console.log(this.mainItemsRecords);
@@ -701,6 +725,7 @@ export class InvoiceComponent {
       const newRecord: MainItem = {
         //
         invoiceMainItemCode: 0,
+        originalIndex: this.mainItemsRecords.length + 1,
         //
         serviceNumberCode: mainItem.serviceNumberCode,
         unitOfMeasurementCode: mainItem.unitOfMeasurementCode,
@@ -711,7 +736,7 @@ export class InvoiceComponent {
         quantity: this.resultAfterTest,
         // quantity: item.quantity,
         amountPerUnit: mainItem.amountPerUnit,
-        amountPerUnitWithProfit:mainItem.amountPerUnitWithProfit,
+        amountPerUnitWithProfit: mainItem.amountPerUnitWithProfit,
         total: mainItem.total,
         profitMargin: mainItem.profitMargin,
         totalWithProfit: mainItem.totalWithProfit,
@@ -745,9 +770,9 @@ export class InvoiceComponent {
             console.log('mainitem with total:', res);
             newRecord.total = res.total;
             newRecord.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
-            if(mainItem.amountPerUnitWithProfit !== undefined ){
+            if (mainItem.amountPerUnitWithProfit !== undefined) {
               console.log(mainItem.amountPerUnitWithProfit);
-              newRecord.amountPerUnitWithProfit=mainItem.amountPerUnitWithProfit;
+              newRecord.amountPerUnitWithProfit = mainItem.amountPerUnitWithProfit;
             }
             newRecord.totalWithProfit = res.totalWithProfit;
             console.log(' Record:', newRecord);
@@ -760,6 +785,8 @@ export class InvoiceComponent {
             this.addMainItem(filteredRecord);
 
             this.mainItemsRecords = [...this.mainItemsRecords];
+            this.originalMainItemsRecords = [...this.mainItemsRecords];
+
             this.savedInMemory = true;
             this.updateTotalValueAfterAction();
             console.log(this.mainItemsRecords);
@@ -786,6 +813,7 @@ export class InvoiceComponent {
       const newRecord: MainItem = {
         //
         invoiceMainItemCode: 0,
+        originalIndex: this.mainItemsRecords.length + 1,
         //
         serviceNumberCode: mainItem.serviceNumberCode,
         unitOfMeasurementCode: this.selectedServiceNumberRecordForExcel.unitOfMeasurementCode,
@@ -795,7 +823,7 @@ export class InvoiceComponent {
         formulaCode: mainItem.formulaCode,
         quantity: mainItem.quantity,
         amountPerUnit: mainItem.amountPerUnit,
-        amountPerUnitWithProfit:mainItem.amountPerUnitWithProfit,
+        amountPerUnitWithProfit: mainItem.amountPerUnitWithProfit,
         total: mainItem.total,
         profitMargin: mainItem.profitMargin,
         totalWithProfit: mainItem.totalWithProfit,
@@ -829,9 +857,9 @@ export class InvoiceComponent {
             console.log('mainitem with total:', res);
             newRecord.total = res.total;
             newRecord.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
-            if(mainItem.amountPerUnitWithProfit !== undefined ){
+            if (mainItem.amountPerUnitWithProfit !== undefined) {
               console.log(mainItem.amountPerUnitWithProfit);
-              newRecord.amountPerUnitWithProfit=mainItem.amountPerUnitWithProfit;
+              newRecord.amountPerUnitWithProfit = mainItem.amountPerUnitWithProfit;
             }
             newRecord.totalWithProfit = res.totalWithProfit;
             console.log(' Record:', newRecord);
@@ -844,6 +872,9 @@ export class InvoiceComponent {
             this.addMainItem(filteredRecord);
 
             this.mainItemsRecords = [...this.mainItemsRecords];
+
+            this.originalMainItemsRecords = [...this.mainItemsRecords];
+
             this.savedInMemory = true;
             this.updateTotalValueAfterAction();
             console.log(this.mainItemsRecords);
@@ -870,6 +901,7 @@ export class InvoiceComponent {
       const newRecord: MainItem = {
         //
         invoiceMainItemCode: 0,
+        originalIndex: this.mainItemsRecords.length + 1,
         //
         serviceNumberCode: mainItem.serviceNumberCode,
         unitOfMeasurementCode: mainItem.unitOfMeasurementCode,
@@ -879,7 +911,7 @@ export class InvoiceComponent {
         formulaCode: mainItem.formulaCode,
         quantity: mainItem.quantity,
         amountPerUnit: mainItem.amountPerUnit,
-        amountPerUnitWithProfit:mainItem.amountPerUnitWithProfit,
+        amountPerUnitWithProfit: mainItem.amountPerUnitWithProfit,
         total: mainItem.total,
         profitMargin: mainItem.profitMargin,
         totalWithProfit: mainItem.totalWithProfit,
@@ -913,9 +945,9 @@ export class InvoiceComponent {
             console.log('mainitem with total:', res);
             newRecord.total = res.total;
             newRecord.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
-            if(mainItem.amountPerUnitWithProfit !== undefined ){
+            if (mainItem.amountPerUnitWithProfit !== undefined) {
               console.log(mainItem.amountPerUnitWithProfit);
-              newRecord.amountPerUnitWithProfit=mainItem.amountPerUnitWithProfit;
+              newRecord.amountPerUnitWithProfit = mainItem.amountPerUnitWithProfit;
             }
             newRecord.totalWithProfit = res.totalWithProfit;
             console.log(' Record:', newRecord);
@@ -928,6 +960,9 @@ export class InvoiceComponent {
             this.addMainItem(filteredRecord);
 
             this.mainItemsRecords = [...this.mainItemsRecords];
+
+            this.originalMainItemsRecords = [...this.mainItemsRecords];
+
             this.savedInMemory = true;
             this.updateTotalValueAfterAction();
             console.log(this.mainItemsRecords);
@@ -1184,6 +1219,7 @@ export class InvoiceComponent {
     totalWithProfit: 0,
     subItems: [],
     isPersisted: false,
+    // originalIndex: 0
   };
 
   // onAmountWithProfitChange(event: Event): void {
@@ -1191,11 +1227,11 @@ export class InvoiceComponent {
   //   console.log(inputValue);
   //   this.newMainItem.amountPerUnitWithProfit = inputValue ? +inputValue : undefined;
   // }
-  
+
   addMainItemInMemory() {
-    if(this.newMainItem.description =='' && this.newMainItem.quantity ===0 && this.newMainItem.amountPerUnit === 0){
+    if (this.newMainItem.description == '' && this.newMainItem.quantity === 0 && this.newMainItem.amountPerUnit === 0) {
       console.log("hereee");
-      console.log(this.newMainItem.description,this.newMainItem.quantity,this.newMainItem.amountPerUnit)
+      console.log(this.newMainItem.description, this.newMainItem.quantity, this.newMainItem.amountPerUnit)
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
@@ -1203,9 +1239,11 @@ export class InvoiceComponent {
         life: 3000,
       });
     }
-   else if (!this.selectedServiceNumberRecord && !this.selectedFormulaRecord) {
+    else if (!this.selectedServiceNumberRecord && !this.selectedFormulaRecord) {
       // if user didn't select serviceNumber && didn't select formula
       const newRecord: MainItem = {
+        originalIndex: this.mainItemsRecords.length + 1,
+
         unitOfMeasurementCode: this.selectedUnitOfMeasure,
         currencyCode: this.cloudCurrency,
         //this.selectedCurrency,
@@ -1214,7 +1252,7 @@ export class InvoiceComponent {
         amountPerUnit: this.newMainItem.amountPerUnit,
         total: this.newMainItem.total,
         profitMargin: this.newMainItem.profitMargin,
-        amountPerUnitWithProfit:this.newMainItem.amountPerUnitWithProfit,
+        amountPerUnitWithProfit: this.newMainItem.amountPerUnitWithProfit,
         // this.newMainItem.profitMargin === 0
         // ? this.newMainItem.amountPerUnit
         // : (this.newMainItem.amountPerUnit ?? 0) *
@@ -1245,9 +1283,9 @@ export class InvoiceComponent {
           newRecord.total = res.total;
           newRecord.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
           // this.newMainItem.amountPerUnitWithProfit !==0 || this.newMainItem.amountPerUnitWithProfit !== undefined || this.newMainItem.amountPerUnitWithProfit !== null
-          if(this.newMainItem.amountPerUnitWithProfit !== undefined ){
+          if (this.newMainItem.amountPerUnitWithProfit !== undefined) {
             console.log(this.newMainItem.amountPerUnitWithProfit);
-            newRecord.amountPerUnitWithProfit=this.newMainItem.amountPerUnitWithProfit;
+            newRecord.amountPerUnitWithProfit = this.newMainItem.amountPerUnitWithProfit;
           }
           newRecord.totalWithProfit = res.totalWithProfit;
           console.log(' Record:', newRecord);
@@ -1266,6 +1304,7 @@ export class InvoiceComponent {
           //this._InvoiceService.addMainItem(filteredRecord);
           this.addMainItem(filteredRecord);
           this.mainItemsRecords = [...this.mainItemsRecords];
+          this.originalMainItemsRecords = [...this.mainItemsRecords];
           console.log(this.totalValue);
           this.savedInMemory = true;
           // this.cdr.detectChanges();
@@ -1295,6 +1334,7 @@ export class InvoiceComponent {
     ) {
       // if user didn't select serviceNumber && select formula
       const newRecord: MainItem = {
+        originalIndex: this.mainItemsRecords.length + 1,
         unitOfMeasurementCode: this.selectedUnitOfMeasure,
         currencyCode: this.cloudCurrency,
         //this.selectedCurrency,
@@ -1302,7 +1342,7 @@ export class InvoiceComponent {
         description: this.newMainItem.description,
         quantity: this.resultAfterTest,
         amountPerUnit: this.newMainItem.amountPerUnit,
-        amountPerUnitWithProfit:this.newMainItem.amountPerUnitWithProfit,
+        amountPerUnitWithProfit: this.newMainItem.amountPerUnitWithProfit,
         total: this.newMainItem.total,
         profitMargin: this.newMainItem.profitMargin,
         totalWithProfit: this.newMainItem.totalWithProfit,
@@ -1336,9 +1376,9 @@ export class InvoiceComponent {
           console.log('mainitem with total:', res);
           newRecord.total = res.total;
           newRecord.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
-          if(this.newMainItem.amountPerUnitWithProfit !== undefined ){
+          if (this.newMainItem.amountPerUnitWithProfit !== undefined) {
             console.log(this.newMainItem.amountPerUnitWithProfit);
-            newRecord.amountPerUnitWithProfit=this.newMainItem.amountPerUnitWithProfit;
+            newRecord.amountPerUnitWithProfit = this.newMainItem.amountPerUnitWithProfit;
           }
           newRecord.totalWithProfit = res.totalWithProfit;
           const filteredRecord = Object.fromEntries(
@@ -1355,6 +1395,7 @@ export class InvoiceComponent {
 
           this.addMainItem(filteredRecord);
           this.mainItemsRecords = [...this.mainItemsRecords];
+          this.originalMainItemsRecords = [...this.mainItemsRecords];
           this.savedInMemory = true;
           this.updateTotalValueAfterAction();
           console.log(this.mainItemsRecords);
@@ -1377,6 +1418,8 @@ export class InvoiceComponent {
     ) {
       // if user select serviceNumber && didn't select formula
       const newRecord: MainItem = {
+        originalIndex: this.mainItemsRecords.length + 1,
+
         serviceNumberCode: this.selectedServiceNumber,
         unitOfMeasurementCode:
           this.selectedServiceNumberRecord.unitOfMeasurementCode,
@@ -1386,7 +1429,7 @@ export class InvoiceComponent {
         description: this.selectedServiceNumberRecord.description,
         quantity: this.newMainItem.quantity,
         amountPerUnit: this.newMainItem.amountPerUnit,
-        amountPerUnitWithProfit:this.newMainItem.amountPerUnitWithProfit,
+        amountPerUnitWithProfit: this.newMainItem.amountPerUnitWithProfit,
         total: this.newMainItem.total,
         profitMargin: this.newMainItem.profitMargin,
         totalWithProfit: this.newMainItem.totalWithProfit,
@@ -1420,9 +1463,9 @@ export class InvoiceComponent {
           console.log('mainitem with total:', res);
           newRecord.total = res.total;
           newRecord.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
-          if(this.newMainItem.amountPerUnitWithProfit !== undefined ){
+          if (this.newMainItem.amountPerUnitWithProfit !== undefined) {
             console.log(this.newMainItem.amountPerUnitWithProfit);
-            newRecord.amountPerUnitWithProfit=this.newMainItem.amountPerUnitWithProfit;
+            newRecord.amountPerUnitWithProfit = this.newMainItem.amountPerUnitWithProfit;
           }
           newRecord.totalWithProfit = res.totalWithProfit;
           const filteredRecord = Object.fromEntries(
@@ -1439,6 +1482,7 @@ export class InvoiceComponent {
 
           this.addMainItem(filteredRecord);
           this.mainItemsRecords = [...this.mainItemsRecords];
+          this.originalMainItemsRecords = [...this.mainItemsRecords];
           console.log(this.totalValue);
           this.savedInMemory = true;
           // this.cdr.detectChanges();
@@ -1459,6 +1503,8 @@ export class InvoiceComponent {
     ) {
       // if user select serviceNumber && select formula
       const newRecord: MainItem = {
+        originalIndex: this.mainItemsRecords.length + 1,
+
         serviceNumberCode: this.selectedServiceNumber,
         unitOfMeasurementCode:
           this.selectedServiceNumberRecord.unitOfMeasurementCode,
@@ -1469,7 +1515,7 @@ export class InvoiceComponent {
         description: this.selectedServiceNumberRecord.description,
         quantity: this.resultAfterTest,
         amountPerUnit: this.newMainItem.amountPerUnit,
-        amountPerUnitWithProfit:this.newMainItem.amountPerUnitWithProfit,
+        amountPerUnitWithProfit: this.newMainItem.amountPerUnitWithProfit,
         total: this.newMainItem.total,
         profitMargin: this.newMainItem.profitMargin,
         totalWithProfit: this.newMainItem.totalWithProfit,
@@ -1503,9 +1549,9 @@ export class InvoiceComponent {
           console.log('mainitem with total:', res);
           newRecord.total = res.total;
           newRecord.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
-          if(this.newMainItem.amountPerUnitWithProfit !== undefined ){
+          if (this.newMainItem.amountPerUnitWithProfit !== undefined) {
             console.log(this.newMainItem.amountPerUnitWithProfit);
-            newRecord.amountPerUnitWithProfit=this.newMainItem.amountPerUnitWithProfit;
+            newRecord.amountPerUnitWithProfit = this.newMainItem.amountPerUnitWithProfit;
           }
           newRecord.totalWithProfit = res.totalWithProfit;
           const filteredRecord = Object.fromEntries(
@@ -1521,6 +1567,7 @@ export class InvoiceComponent {
           console.log(filteredRecord);
           this.addMainItem(filteredRecord);
           this.mainItemsRecords = [...this.mainItemsRecords];
+          this.originalMainItemsRecords = [...this.mainItemsRecords];
           console.log(this.totalValue);
           this.savedInMemory = true;
           // this.cdr.detectChanges();
@@ -2195,7 +2242,7 @@ export class InvoiceComponent {
   clonedMainItem: { [s: number]: MainItem } = {};
   onMainItemEditInit(record: MainItem) {
     this.clonedMainItem[record.invoiceMainItemCode] = { ...record };
-   // record.amountPerUnitWithProfit = undefined;
+    // record.amountPerUnitWithProfit = undefined;
   }
   onMainItemEditSave(index: number, record: MainItem) {
     console.log(record);
@@ -2241,9 +2288,9 @@ export class InvoiceComponent {
           console.log('mainitem with total:', res);
           newRecord.total = res.total;
           newRecord.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
-          if(record.amountPerUnitWithProfit !== null ){
+          if (record.amountPerUnitWithProfit !== null) {
             console.log(record.amountPerUnitWithProfit);
-            newRecord.amountPerUnitWithProfit=record.amountPerUnitWithProfit;
+            newRecord.amountPerUnitWithProfit = record.amountPerUnitWithProfit;
           }
           newRecord.totalWithProfit = res.totalWithProfit;
           const mainItemIndex = this.mainItemsRecords.findIndex(
@@ -2317,9 +2364,9 @@ export class InvoiceComponent {
           // this.totalValue = 0;
           newRecord.total = res.total;
           newRecord.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
-          if(record.amountPerUnitWithProfit !== null ){
+          if (record.amountPerUnitWithProfit !== null) {
             console.log(record.amountPerUnitWithProfit);
-            newRecord.amountPerUnitWithProfit=record.amountPerUnitWithProfit;
+            newRecord.amountPerUnitWithProfit = record.amountPerUnitWithProfit;
           }
           newRecord.totalWithProfit = res.totalWithProfit;
 
@@ -2390,9 +2437,9 @@ export class InvoiceComponent {
           // this.totalValue = 0;
           newRecord.total = res.total;
           newRecord.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
-          if(record.amountPerUnitWithProfit !== null ){
+          if (record.amountPerUnitWithProfit !== null) {
             console.log(record.amountPerUnitWithProfit);
-            newRecord.amountPerUnitWithProfit=record.amountPerUnitWithProfit;
+            newRecord.amountPerUnitWithProfit = record.amountPerUnitWithProfit;
           }
           newRecord.totalWithProfit = res.totalWithProfit;
 
@@ -2453,9 +2500,9 @@ export class InvoiceComponent {
           console.log('mainitem with total:', res);
           updatedMainItem.total = res.total;
           updatedMainItem.amountPerUnitWithProfit = res.amountPerUnitWithProfit;
-          if(record.amountPerUnitWithProfit !== null ){
+          if (record.amountPerUnitWithProfit !== null) {
             console.log(record.amountPerUnitWithProfit);
-            updatedMainItem.amountPerUnitWithProfit=record.amountPerUnitWithProfit;
+            updatedMainItem.amountPerUnitWithProfit = record.amountPerUnitWithProfit;
           }
           updatedMainItem.totalWithProfit = res.totalWithProfit;
           const mainItemIndex = this.mainItemsRecords.findIndex(
@@ -3042,20 +3089,16 @@ export class InvoiceComponent {
           for (const record of this.selectedTenderingMainItems) {
             console.log(record);
             this.mainItemsRecords = this.mainItemsRecords.filter(item => item.invoiceMainItemCode !== record.invoiceMainItemCode);
-            // this.mainItemsRecords = this.mainItemsRecords.filter((item) => {
-            //   const isSelected = this.selectedTenderingMainItems.some(
-            //     (selected) =>
-            //       selected.invoiceMainItemCode === item.invoiceMainItemCode
-            //   );
-            //   console.log(
-            //     `Item ${item.invoiceMainItemCode} is selected: ${isSelected}`
-            //   );
-            //   return !isSelected;
-            // });
+            // Reassign originalIndex dynamically
+            this.mainItemsRecords.forEach((item, index) => {
+              item.originalIndex = index + 1; 
+            });
             this.mainItemsRecords = [...this.mainItemsRecords];
+
+            this.originalMainItemsRecords = [...this.mainItemsRecords];
+
             console.log('MainItems after deletion:', this.mainItemsRecords);
             this.updateTotalValueAfterAction();
-            // this.selectedTenderingMainItems = [];
             this.cdr.detectChanges();
             this.messageService.add({
               severity: 'success',
@@ -3065,6 +3108,7 @@ export class InvoiceComponent {
             });
             this.selectedTenderingMainItems = [];
           }
+          //this.selectedTenderingMainItems = [];
         },
       });
     }
